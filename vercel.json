@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/map", "destination": "https://srncatabrnensko.cz/map" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
