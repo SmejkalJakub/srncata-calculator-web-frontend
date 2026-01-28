@@ -12,8 +12,6 @@ type RowProps = {
 };
 
 export function Row({ label, value, href, icon, testId }: RowProps) {
-    const v = value?.trim() ?? "";
-
     if (icon) {
         return (
             <a href={href} target="_blank" rel="noreferrer" className="flex flex-col items-center hover:bg-[rgba(34,197,94,0.1)] justify-center gap-2 rounded-full border border-primary p-4" data-testid={testId}>
