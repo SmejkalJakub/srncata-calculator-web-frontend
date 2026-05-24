@@ -13,7 +13,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card";
 import { Badge } from "./components/ui/badge";
 import { useState } from "react";
 import { Input } from "./components/ui/input";
-import { shortenUrl } from "./api/shorten";
+//import { shortenUrl } from "./api/shorten";
 
 const supportedFormats = [
   { name: "Desetinné stupně", example: "49.2141, 16.8189" },
