@@ -15,5 +15,6 @@ export async function convertLocation(
     params: { location },
     signal,
   });
+  console.log(res.data);
   return res.data;
 }
