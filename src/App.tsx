@@ -11,7 +11,7 @@ import { Button } from "./components/ui/button";
 import { ChevronDown, MapPin } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card";
 import { Badge } from "./components/ui/badge";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Input } from "./components/ui/input";
 import { shortenUrl } from "./api/shorten";
 
