@@ -78,7 +78,11 @@ export default defineConfig({
         target: "https://srncatabrnensko.cz",
         changeOrigin: true,
         secure: true,
-        rewrite: (path) => path.replace(/^\/api\/map/, "/map"),
+      },
+      "/api/shorten": {
+        target: "https://srncatabrnensko.cz",
+        changeOrigin: true,
+        secure: true,
       },
     },
   },

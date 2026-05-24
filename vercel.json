@@ -2,7 +2,11 @@
   "rewrites": [
     {
       "source": "/api/map",
-      "destination": "https://srncatabrnensko.cz/map"
+      "destination": "https://srncatabrnensko.cz/api/map"
+    },
+    {
+      "source": "/api/shorten",
+      "destination": "https://srncatabrnensko.cz/api/shorten"
     },
     {
       "source": "/(.*)",

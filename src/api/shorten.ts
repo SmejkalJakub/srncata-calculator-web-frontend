@@ -16,18 +16,9 @@ type shortenUrlResponse = {
 export async function shortenUrl(
   data: ConvertResponse | string,
 ): Promise<shortenUrlResponse> {
-
-  const stringifiedData = JSON.stringify(data);
-  const res = await http.post<shortenUrlResponse>(SHORTEN_PATH, stringifiedData, {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log("Shorten response:", res);
-  if (res.data.ok) {
-    return res.data;
+  const res = await http.post<{ short_link: string }>(SHORTEN_PATH, data);
+  if (res.data.short_link) {
+    return { ok: true, shortUrl: res.data.short_link };
   }
-  throw new Error(
-    `Error shortening URL: ${res.data.error ?? "Unknown error"}`,
-  );
+  throw new Error("Error shortening URL");
 }
