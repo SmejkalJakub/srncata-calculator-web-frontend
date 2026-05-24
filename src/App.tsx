@@ -135,9 +135,9 @@ export default function App() {
 
             {ok && !loading && !error ? (
               <>
-                <Button variant="default" size="lg" className="mb-4 w-full cursor-pointer" onClick={handleCopyShortcode}>
+                {/*<Button variant="default" size="lg" className="mb-4 w-full cursor-pointer" onClick={handleCopyShortcode}>
                   Kopírovat shortcode url s těmito souřadnicemi
-                </Button>
+                </Button>*/}
                 <Results data={data} />
               </>
             ) : null}
