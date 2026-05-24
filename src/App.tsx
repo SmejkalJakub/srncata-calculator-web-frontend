@@ -37,7 +37,7 @@ export default function App() {
     setInput(e.target.value);
   };
 
-  const handleCopyShortcode = async () => {
+  /*const handleCopyShortcode = async () => {
     if (data && isConvertSuccess(data)) {
       const res = await shortenUrl(data);
       if (res.ok && res.shortUrl) {
@@ -47,7 +47,7 @@ export default function App() {
         console.warn("Nepodařilo se vytvořit shortcode URL.");
       }
     }
-  };
+  };*/
 
     return (
       <div className="min-h-screen bg-background">
