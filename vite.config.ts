@@ -84,6 +84,11 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
       },
+      "/api/short/": {
+        target: "https://srncatabrnensko.cz",
+        changeOrigin: true,
+        secure: true,
+      },
     },
   },
 })

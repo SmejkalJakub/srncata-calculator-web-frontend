@@ -9,6 +9,7 @@ export default defineConfig({
         env: {
             APP_PATH: "/map",     // change to "/" if your SPA route is root
             API_PATH: "/api/map", // must match your Vite proxy path
+            SHORTEN_PATH: "/api/shorten", // must match your Vite proxy path
         },
     },
 });

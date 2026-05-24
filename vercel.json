@@ -9,6 +9,10 @@
       "destination": "https://srncatabrnensko.cz/api/shorten"
     },
     {
+      "source": "/api/short/:code",
+      "destination": "https://srncatabrnensko.cz/api/short/:code"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

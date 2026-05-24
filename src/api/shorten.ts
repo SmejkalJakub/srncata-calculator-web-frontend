@@ -16,9 +16,10 @@ type shortenUrlResponse = {
 export async function shortenUrl(
   data: ConvertResponse | string,
 ): Promise<shortenUrlResponse> {
-  const res = await http.post<{ short_link: string }>(SHORTEN_PATH, data);
-  if (res.data.short_link) {
-    return { ok: true, shortUrl: res.data.short_link };
+  const res = await http.post<{ short_code: string }>(SHORTEN_PATH, data);
+  if (res.data.short_code) {
+    const shortUrl = `${window.location.origin}/?s=${res.data.short_code}`;
+    return { ok: true, shortUrl };
   }
   throw new Error("Error shortening URL");
 }

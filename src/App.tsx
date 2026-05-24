@@ -11,9 +11,10 @@ import { Button } from "./components/ui/button";
 import { ChevronDown, MapPin } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "./components/ui/card";
 import { Badge } from "./components/ui/badge";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "./components/ui/input";
-//import { shortenUrl } from "./api/shorten";
+import { shortenUrl } from "./api/shorten";
+import type { ConvertSuccess } from "./types/api";
 
 const supportedFormats = [
   { name: "Desetinné stupně", example: "49.2141, 16.8189" },
@@ -29,17 +30,38 @@ const supportedFormats = [
 export default function App() {
   const [input, setInput] = useQueryParamState("location", 300);
   const { data, loading, error } = useConversion(input, 350);
-  const [showFormats, setShowFormats] = useState(false)
+  const [showFormats, setShowFormats] = useState(false);
+  const [shortcodeData, setShortcodeData] = useState<ConvertSuccess | null>(null);
+  const [shortcodeLoading, setShortcodeLoading] = useState(false);
 
-  const ok = data && isConvertSuccess(data);
+  useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get("s");
+    if (!code) return;
+    setShortcodeLoading(true);
+    fetch(`/api/short/${code}`)
+      .then((r) => r.json())
+      .then((d) => { if (isConvertSuccess(d)) setShortcodeData(d); })
+      .catch(() => {})
+      .finally(() => setShortcodeLoading(false));
+  }, []);
+
+  const displayData = shortcodeData ?? data;
+  const ok = displayData && isConvertSuccess(displayData);
+  const isLoading = loading || shortcodeLoading;
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
+    if (shortcodeData) {
+      setShortcodeData(null);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("s");
+      window.history.replaceState({}, "", url.toString());
+    }
   };
 
-  /*const handleCopyShortcode = async () => {
-    if (data && isConvertSuccess(data)) {
-      const res = await shortenUrl(data);
+  const handleCopyShortcode = async () => {
+    if (displayData && isConvertSuccess(displayData)) {
+      const res = await shortenUrl(displayData);
       if (res.ok && res.shortUrl) {
         navigator.clipboard.writeText(res.shortUrl);
         console.log("Shortcode URL zkopírováno do schránky!");
@@ -47,7 +69,7 @@ export default function App() {
         console.warn("Nepodařilo se vytvořit shortcode URL.");
       }
     }
-  };*/
+  };
 
     return (
       <div className="min-h-screen bg-background">
@@ -110,7 +132,7 @@ export default function App() {
           </div>
 
           <div className="my-1">
-            {loading ? (
+            {isLoading ? (
               <Card>
                 <CardContent className="text-center">
                   <p className="text-muted-foreground" data-testid="loading">
@@ -133,12 +155,12 @@ export default function App() {
               </Card>
             ) : null}
 
-            {ok && !loading && !error ? (
+            {ok && !isLoading && !error ? (
               <>
-                {/*<Button variant="default" size="lg" className="mb-4 w-full cursor-pointer" onClick={handleCopyShortcode}>
+                <Button variant="default" size="lg" className="mb-4 w-full cursor-pointer" onClick={handleCopyShortcode}>
                   Kopírovat shortcode url s těmito souřadnicemi
-                </Button>*/}
-                <Results data={data} />
+                </Button>
+                <Results data={displayData as ConvertSuccess} />
               </>
             ) : null}
           </div>
